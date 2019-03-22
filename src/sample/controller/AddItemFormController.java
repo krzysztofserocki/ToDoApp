@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import sample.Database.DatabaseHandler;
 import sample.model.Task;
 
@@ -29,6 +30,12 @@ public class AddItemFormController {
     private JFXButton saveTaskButton;
 
     @FXML
+    private Label successLabel;
+
+    @FXML
+    private JFXButton todosButton;
+
+    @FXML
     void initialize() {
 
         databaseHandler = new DatabaseHandler();
@@ -50,11 +57,25 @@ public class AddItemFormController {
                 task.setDescription(taskDescription);
                 task.setTask(taskText);
 
+                successLabel.setVisible(true);
+                todosButton.setVisible(true);
+                int taskNumber = 2;
+                todosButton.setText("My 2DO's: " + taskNumber);
+
+                taskField.setText("");
+                taskField.requestFocus();
+                descriptionField.setText("");
+
+
+                todosButton.setOnAction(event1 -> {
+                    // Send users to the list screen
+                });
+
                 databaseHandler.insertTask(task);
 
                 System.out.println("Task Added Successfully!");
             } else {
-                System.out.println("Nothing added!");
+                successLabel.setVisible(true);
             }
 
 

@@ -25,6 +25,16 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </JFXButton>
+            <Label fx:id="successLabel" alignment="CENTER" layoutX="272.0" layoutY="252.0" text="Task added successfully!" visible="false">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="todosButton" layoutX="564.0" layoutY="250.0" prefHeight="21.0" prefWidth="122.0" style="-fx-background-color: #ffb24f;" text="My 2DO's (3)" visible="false">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
          </children>
         </AnchorPane>
         <Label alignment="CENTER" layoutX="218.0" layoutY="30.0" prefHeight="51.0" prefWidth="265.0" text="2DO" textFill="WHITE">
