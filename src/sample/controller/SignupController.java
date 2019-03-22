@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.Database.DatabaseHandler;
+import sample.model.User;
 
 public class SignupController {
 
@@ -49,13 +50,29 @@ public class SignupController {
 
     @FXML
     void initialize() {
-        DatabaseHandler databaseHandler = new DatabaseHandler();
-
 
         signupButton.setOnAction(event -> {
-            databaseHandler.signUpUser(signupFirstName.getText(), signupLastName.getText(),
-                    signupUsername.getText(), signupPassword.getText(), signupLocation.getText(),
-                    "Male");
+            createUser();
         });
+    }
+
+
+    private void createUser() {
+        DatabaseHandler databaseHandler = new DatabaseHandler();
+
+        String name = signupFirstName.getText();
+        String lastname = signupLastName.getText();
+        String username = signupUsername.getText();
+        String password = signupPassword.getText();
+        String location = signupLocation.getText();
+
+        String gender = "";
+        if (signupCheckBoxFemale.isSelected()) {
+            gender = "Female";
+        } else gender = "Male";
+
+        User user = new User(name, lastname, username, password, location, gender);
+
+        databaseHandler.signUpUser(user);
     }
 }

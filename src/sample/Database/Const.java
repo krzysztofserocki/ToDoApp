@@ -15,6 +15,7 @@ public class Const {
 
     // TASKS Table Column Names
     public static final String TASKS_ID = "taskid";
+    public static final String TASKS_TASK = "task";
     public static final String TASKS_DATECREATED = "datecreated";
     public static final String TASKS_DESCRIPTION = "description";
 }

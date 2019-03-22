@@ -38,6 +38,10 @@ public class LoginController {
         String logUsr = loginUsername.getText().trim();
         String logPass = loginPassword.getText().trim();
 
+        loginButton.setOnAction(event -> {
+
+        });
+
         loginSignupButton.setOnAction(event -> {
             //Take users to signup screen
             loginSignupButton.getScene().getWindow().hide();
@@ -67,7 +71,11 @@ public class LoginController {
     private void loginUser(String username, String password) {
         //Check in the database if the user exists, if true
         //We take them to AddItem screen
+        if (!username.equals("") || !password.equals("")) {
 
+        } else {
+            // They need to enter their credentials
+        }
     }
 }
 

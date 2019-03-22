@@ -1,5 +1,7 @@
 package sample.Database;
 
+import sample.model.User;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,8 +23,7 @@ public class DatabaseHandler extends  Configs{
 
 
     // Write to our database
-    public void signUpUser(String firstName, String lastName, String userName,
-                           String password, String location, String gender) {
+    public void signUpUser(User user) {
         // INSERT INTO USERS(firstname, lastname, username, password, location, gender)
         // VALEUS(?,?,?,?,?,?)
         String insert = "INSERT INTO " + Const.USERS_TABLE + "(" + Const.USERS_FIRSTNAME
@@ -33,12 +34,12 @@ public class DatabaseHandler extends  Configs{
         try {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
 
-            preparedStatement.setString(1, firstName);
-            preparedStatement.setString(2, lastName);
-            preparedStatement.setString(3, userName);
-            preparedStatement.setString(4, password);
-            preparedStatement.setString(5, location);
-            preparedStatement.setString(6, gender);
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getUserName());
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(5, user.getLocation());
+            preparedStatement.setString(6, user.getGender());
 
             preparedStatement.executeUpdate();
 
