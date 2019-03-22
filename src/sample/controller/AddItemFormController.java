@@ -3,10 +3,15 @@ package sample.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import sample.Database.DatabaseHandler;
+import sample.model.Task;
 
 public class AddItemFormController {
+    private DatabaseHandler databaseHandler;
+    private int userId;
 
     @FXML
     private ResourceBundle resources;
@@ -25,9 +30,42 @@ public class AddItemFormController {
 
     @FXML
     void initialize() {
-        assert taskField != null : "fx:id=\"taskField\" was not injected: check your FXML file 'addItemForm.fxml'.";
-        assert descriptionField != null : "fx:id=\"descriptionField\" was not injected: check your FXML file 'addItemForm.fxml'.";
-        assert saveTaskButton != null : "fx:id=\"saveTaskButton\" was not injected: check your FXML file 'addItemForm.fxml'.";
 
+        databaseHandler = new DatabaseHandler();
+
+        saveTaskButton.setOnAction(event -> {
+            Task task = new Task();
+
+            java.sql.Timestamp timestamp =
+                    new java.sql.Timestamp(Calendar.getInstance().getTimeInMillis());
+
+            String taskText = taskField.getText().trim();
+            String taskDescription = descriptionField.getText().trim();
+
+            if (!taskText.equals("") || !taskDescription.equals("")) {
+
+                System.out.println(AddItemController.userId);
+                task.setUserId(AddItemController.userId);
+                task.setDatecreated(timestamp);
+                task.setDescription(taskDescription);
+                task.setTask(taskText);
+
+                databaseHandler.insertTask(task);
+
+                System.out.println("Task Added Successfully!");
+            } else {
+                System.out.println("Nothing added!");
+            }
+
+
+        });
+    }
+
+    public int getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

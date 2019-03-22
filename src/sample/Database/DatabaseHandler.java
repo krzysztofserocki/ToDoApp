@@ -1,5 +1,6 @@
 package sample.Database;
 
+import sample.model.Task;
 import sample.model.User;
 
 import java.sql.*;
@@ -19,7 +20,7 @@ public class DatabaseHandler extends  Configs{
     }
 
 
-    // Write to our database
+    // Insert users to our database
     public void signUpUser(User user) {
         // INSERT INTO USERS(firstname, lastname, username, password, location, gender)
         // VALEUS(?,?,?,?,?,?)
@@ -47,6 +48,7 @@ public class DatabaseHandler extends  Configs{
         }
     }
 
+    // Login users to our application (it tests if username and password exist in database)
     public ResultSet getUser(User user) {
         ResultSet resultSet = null;
         if (!user.getUserName().equals("") || !user.getPassword().equals("")) {
@@ -70,6 +72,31 @@ public class DatabaseHandler extends  Configs{
         }
 
         return resultSet;
+    }
+
+    // Insert tasks to our database
+    public void insertTask(Task task) {
+        // INSERT INTO tasks(firstname, lastname, username, password, location, gender)
+        // VALEUS(?,?,?,?,?,?)
+        String insert = "INSERT INTO " + Const.TASKS_TABLE + "(" + Const.USERS_ID
+                + "," + Const.TASKS_DATECREATED + "," + Const.TASKS_DESCRIPTION + ","
+                + Const.TASKS_TASK + ")VALUES(?,?,?,?)";
+
+        try {
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+
+            preparedStatement.setInt(1, task.getUserId());
+            preparedStatement.setTimestamp(2, task.getDatecreated());
+            preparedStatement.setString(3, task.getDescription());
+            preparedStatement.setString(4, task.getTask());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -20,6 +20,8 @@ import java.util.ResourceBundle;
 
 public class LoginController {
 
+    private int userId;
+
     @FXML
     private ResourceBundle resources;
 
@@ -62,6 +64,8 @@ public class LoginController {
                 while (userRow.next()) {
                     counter++;
                     String name = userRow.getString("firstname");
+                    userId = userRow.getInt("userid");
+
                     System.out.println("Welcome, " + name + "!");
                 }
 
@@ -111,6 +115,10 @@ public class LoginController {
         Parent root = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+
+        AddItemController addItemController = loader.getController();
+        addItemController.setUserId(userId);
+
         stage.showAndWait();
     }
 }

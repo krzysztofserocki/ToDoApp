@@ -16,6 +16,8 @@ import sample.animations.Shaker;
 
 public class AddItemController {
 
+    public static int userId;
+
     @FXML
     private AnchorPane rootPane;
 
@@ -68,6 +70,8 @@ public class AddItemController {
                         FXMLLoader.load(getClass().getResource("/sample/view/addItemForm.fxml"));
                 FadeTransition rootTransition = new FadeTransition(Duration.millis(1000), formPane);
 
+                AddItemController.userId = getUserId();
+
                 rootTransition.setFromValue(0f);
                 rootTransition.setToValue(1f);
                 rootTransition.setCycleCount(1);
@@ -78,7 +82,14 @@ public class AddItemController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         });
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getUserId() {
+        return this.userId;
     }
 }

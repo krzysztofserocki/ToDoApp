@@ -14,7 +14,7 @@ public class Main extends Application {
         Parent root2 = FXMLLoader.load(getClass().getResource("view/addItem.fxml"));
 
         primaryStage.setTitle("2DO");
-        primaryStage.setScene(new Scene(root2, 700, 400));
+        primaryStage.setScene(new Scene(root, 700, 400));
         primaryStage.show();
     }
 
