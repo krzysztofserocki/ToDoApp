@@ -3,6 +3,7 @@ package sample.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -50,8 +51,7 @@ public class AddItemFormController {
             String taskDescription = descriptionField.getText().trim();
 
             if (!taskText.equals("") || !taskDescription.equals("")) {
-
-                System.out.println(AddItemController.userId);
+                
                 task.setUserId(AddItemController.userId);
                 task.setDatecreated(timestamp);
                 task.setDescription(taskDescription);
@@ -59,8 +59,15 @@ public class AddItemFormController {
 
                 successLabel.setVisible(true);
                 todosButton.setVisible(true);
-                int taskNumber = 2;
-                todosButton.setText("My 2DO's: " + taskNumber);
+                int taskNumber = 0;
+                try {
+                    taskNumber = databaseHandler.getAllTasks(AddItemController.userId);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                todosButton.setText("My 2DO's: (" + taskNumber + ")");
 
                 taskField.setText("");
                 taskField.requestFocus();
@@ -72,8 +79,6 @@ public class AddItemFormController {
                 });
 
                 databaseHandler.insertTask(task);
-
-                System.out.println("Task Added Successfully!");
             } else {
                 successLabel.setVisible(true);
             }

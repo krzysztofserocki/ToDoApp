@@ -5,12 +5,12 @@ import sample.model.User;
 
 import java.sql.*;
 
-public class DatabaseHandler extends  Configs{
+public class DatabaseHandler extends Configs {
     Connection dbConnection;
 
     public Connection getDbConnection() throws ClassNotFoundException, SQLException {
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort
-                                  + "/" + dbName + "?useLegacyDatetimeCode=false&serverTimezone=UTC";
+                + "/" + dbName + "?useLegacyDatetimeCode=false&serverTimezone=UTC";
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -73,6 +73,26 @@ public class DatabaseHandler extends  Configs{
 
         return resultSet;
     }
+
+
+    public int getAllTasks(int userId) throws SQLException, ClassNotFoundException {
+
+        String query = "SELECT COUNT(*) FROM " + Const.TASKS_TABLE + " WHERE "
+                + Const.USERS_ID + "=?";
+
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+        preparedStatement.setInt(1, userId);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            return resultSet.getInt(1);
+        }
+
+
+        return 0;
+    }
+
 
     // Insert tasks to our database
     public void insertTask(Task task) {
