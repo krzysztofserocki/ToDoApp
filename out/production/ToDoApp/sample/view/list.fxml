@@ -13,7 +13,7 @@
    <children>
       <AnchorPane layoutY="105.0" prefHeight="294.0" prefWidth="700.0" style="-fx-background-color: #e2f1f8;">
          <children>
-            <JFXListView fx:id="listTask" layoutX="427.0" layoutY="7.0" prefHeight="281.0" prefWidth="265.0">
+            <JFXListView fx:id="listTask" layoutX="292.0" layoutY="7.0" prefHeight="281.0" prefWidth="400.0">
                <effect>
                   <DropShadow />
                </effect>
@@ -21,17 +21,17 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </JFXListView>
-            <JFXTextField fx:id="listTaskField" focusColor="#c77800" layoutX="83.0" layoutY="52.0" prefHeight="35.0" prefWidth="235.0" promptText="Task">
+            <JFXTextField fx:id="listTaskField" focusColor="#c77800" layoutX="31.0" layoutY="52.0" prefHeight="35.0" prefWidth="235.0" promptText="Task">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="listDescriptionField" focusColor="#c77800" layoutX="83.0" layoutY="125.0" prefHeight="37.0" prefWidth="235.0" promptText="Description">
+            <JFXTextField fx:id="listDescriptionField" focusColor="#c77800" layoutX="31.0" layoutY="125.0" prefHeight="37.0" prefWidth="235.0" promptText="Description">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXButton fx:id="listSaveTaskButton" alignment="CENTER" layoutX="117.0" layoutY="199.0" prefHeight="37.0" prefWidth="167.0" style="-fx-background-color: ffa726;" text="Save Task!" textFill="WHITE">
+            <JFXButton fx:id="listSaveTaskButton" alignment="CENTER" layoutX="65.0" layoutY="199.0" prefHeight="37.0" prefWidth="167.0" style="-fx-background-color: ffa726;" text="Save Task!" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
