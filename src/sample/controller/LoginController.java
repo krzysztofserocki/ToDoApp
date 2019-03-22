@@ -3,15 +3,19 @@ package sample.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.Database.DatabaseHandler;
+import sample.model.User;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 public class LoginController {
 
@@ -33,12 +37,39 @@ public class LoginController {
     @FXML
     private JFXButton loginSignupButton;
 
+    private DatabaseHandler databaseHandler;
+
     @FXML
     void initialize() {
-        String logUsr = loginUsername.getText().trim();
-        String logPass = loginPassword.getText().trim();
+
+        databaseHandler = new DatabaseHandler();
 
         loginButton.setOnAction(event -> {
+
+            String logUsr = loginUsername.getText().trim();
+            String logPass = loginPassword.getText().trim();
+
+            User user = new User();
+            user.setUserName(logUsr);
+            user.setPassword(logPass);
+
+            ResultSet userRow = databaseHandler.getUser(user);
+
+            int counter = 0;
+
+            try {
+                while (userRow.next()) {
+                    counter++;
+                    String name = userRow.getString("firstname");
+                    System.out.println("Welcome, " + name + "!");
+                }
+
+                if (counter == 1) {
+                    System.out.println("Login Successful!");
+                }
+            } catch (SQLException e) {
+
+            }
 
         });
 
@@ -58,24 +89,6 @@ public class LoginController {
             stage.setScene(new Scene(root));
             stage.showAndWait();
         });
-
-        loginButton.setOnAction(event -> {
-            if (!logPass.equals("") || !logPass.equals("")) {
-                loginUser(logUsr, logPass);
-            } else {
-                System.out.println("Error login in user");
-            }
-        });
-    }
-
-    private void loginUser(String username, String password) {
-        //Check in the database if the user exists, if true
-        //We take them to AddItem screen
-        if (!username.equals("") || !password.equals("")) {
-
-        } else {
-            // They need to enter their credentials
-        }
     }
 }
 

@@ -2,10 +2,7 @@ package sample.Database;
 
 import sample.model.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DatabaseHandler extends  Configs{
     Connection dbConnection;
@@ -14,7 +11,7 @@ public class DatabaseHandler extends  Configs{
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort
                                   + "/" + dbName + "?useLegacyDatetimeCode=false&serverTimezone=UTC";
 
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
 
         dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
 
@@ -48,6 +45,31 @@ public class DatabaseHandler extends  Configs{
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public ResultSet getUser(User user) {
+        ResultSet resultSet = null;
+        if (!user.getUserName().equals("") || !user.getPassword().equals("")) {
+            // SELECT * FROM users WHERE @username=username AND @password=password
+            String query = "SELECT * FROM " + Const.USERS_TABLE + " WHERE "
+                    + Const.USERS_USERNAME + "=?" + " AND " + Const.USERS_PASSWORD
+                    + "=?";
+            try {
+                PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+                preparedStatement.setString(1, user.getUserName());
+                preparedStatement.setString(2, user.getPassword());
+                resultSet = preparedStatement.executeQuery();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            System.out.println("Please enter your credentials");
+        }
+
+        return resultSet;
     }
 
 }
