@@ -66,15 +66,15 @@ public class LoginController {
                 }
 
                 if (counter == 1) {
-                    System.out.println("Login Successful!");
+                    showAddItemScreen();
                 } else {
-                    Shaker shaker = new Shaker(loginUsername);
-                    shaker.shake();
-                    Shaker shaker1 = new Shaker(loginPassword);
-                    shaker1.shake();
+                    Shaker usernameShaker = new Shaker(loginUsername);
+                    Shaker passwordShaker = new Shaker(loginPassword);
+                    usernameShaker.shake();
+                    passwordShaker.shake();
                 }
             } catch (SQLException e) {
-
+                e.printStackTrace();
             }
 
         });
@@ -95,6 +95,23 @@ public class LoginController {
             stage.setScene(new Scene(root));
             stage.showAndWait();
         });
+    }
+
+    private void showAddItemScreen() {
+        //Take users to AddItem screen
+        loginSignupButton.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/sample/view/AddItem.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
     }
 }
 
