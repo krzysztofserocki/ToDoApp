@@ -19,6 +19,17 @@ public class DatabaseHandler extends Configs {
         return dbConnection;
     }
 
+    // Delete Task
+    public void deleteTask(int userId, int taskId) throws SQLException, ClassNotFoundException {
+        String query = "DELETE FROM " + Const.TASKS_TABLE + " WHERE " +
+                Const.USERS_ID + "=?" + " AND " + Const.TASKS_ID + "=?";
+
+        PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+        preparedStatement.setInt(1, userId);
+        preparedStatement.setInt(2, taskId);
+        preparedStatement.execute();
+        preparedStatement.close();
+    }
 
     // Insert users to our database
     public void signUpUser(User user) {

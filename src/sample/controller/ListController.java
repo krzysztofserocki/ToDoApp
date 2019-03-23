@@ -40,6 +40,7 @@ public class ListController {
         while (resultSet.next()) {
             Task task = new Task();
 
+            task.setTaskId(resultSet.getInt("taskid"));
             task.setTask(resultSet.getString("task"));
             task.setDatecreated(resultSet.getTimestamp("datecreated"));
             task.setDescription(resultSet.getString("description"));
