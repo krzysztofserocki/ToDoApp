@@ -47,6 +47,28 @@ public class DatabaseHandler extends Configs {
             e.printStackTrace();
         }
     }
+    // Show all tasks which are planned by each user
+    public ResultSet getTasksByUser(int userId) {
+
+        ResultSet resultTasks = null;
+
+        String query = "SELECT * FROM " + Const.TASKS_TABLE + " WHERE "
+                + Const.USERS_ID + "=?";
+
+        try {
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+
+            preparedStatement.setInt(1, userId);
+
+            resultTasks = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return resultTasks;
+    }
 
     // Login users to our application (it tests if username and password exist in database)
     public ResultSet getUser(User user) {
