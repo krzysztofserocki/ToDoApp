@@ -21,7 +21,7 @@
          <padding>
             <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
          </padding></Label>
-      <Label fx:id="dateLabel" alignment="CENTER_RIGHT" layoutX="236.0" layoutY="78.0" prefHeight="17.0" prefWidth="107.0" text="Date Created" />
+      <Label fx:id="dateLabel" alignment="CENTER_RIGHT" layoutX="189.0" layoutY="78.0" prefHeight="17.0" prefWidth="154.0" text="Date Created" />
       <ImageView fx:id="deleteButton" fitHeight="17.0" fitWidth="16.0" layoutX="327.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/icons8-close-window-filled-100.png" />

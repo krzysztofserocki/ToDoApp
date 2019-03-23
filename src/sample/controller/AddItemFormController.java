@@ -43,7 +43,7 @@ public class AddItemFormController {
     private JFXButton todosButton;
 
     @FXML
-    void initialize() {
+    void initialize() throws SQLException, ClassNotFoundException {
 
         databaseHandler = new DatabaseHandler();
 
@@ -57,14 +57,6 @@ public class AddItemFormController {
             String taskDescription = descriptionField.getText().trim();
 
             if (!taskText.equals("") || !taskDescription.equals("")) {
-
-                task.setUserId(AddItemController.userId);
-                task.setDatecreated(timestamp);
-                task.setDescription(taskDescription);
-                task.setTask(taskText);
-
-                successLabel.setVisible(true);
-                todosButton.setVisible(true);
                 int taskNumber = 0;
                 try {
                     taskNumber = databaseHandler.getAllTasks(AddItemController.userId) + 1;
@@ -73,6 +65,14 @@ public class AddItemFormController {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
+
+                task.setUserId(AddItemController.userId);
+                task.setDatecreated(timestamp);
+                task.setDescription(taskDescription);
+                task.setTask(taskText);
+
+                successLabel.setVisible(true);
+                todosButton.setVisible(true);
                 todosButton.setText("My 2DO's: (" + taskNumber + ")");
 
                 taskField.setText("");
