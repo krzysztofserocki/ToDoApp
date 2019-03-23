@@ -11,6 +11,8 @@ import sample.model.Task;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Calendar;
 
 public class ListController {
 
@@ -50,6 +52,31 @@ public class ListController {
 
         listTask.setItems(tasks);
         listTask.setCellFactory(CellController -> new CellController());
+
+        listSaveTaskButton.setOnAction(event -> {
+            addNewTask();
+            System.out.println("Save task clicked!");
+        });
+    }
+
+    public void addNewTask() {
+        listSaveTaskButton.setOnAction(event -> {
+            if (!listTaskField.getText().equals("")
+                    || !listDescriptionField.getText().equals("")) {
+                Task myNewTask = new Task();
+
+                myNewTask.setUserId(AddItemController.userId);
+                myNewTask.setTask(listTaskField.getText().trim());
+                myNewTask.setDescription(listDescriptionField.getText().trim());
+                myNewTask.setDatecreated(new java.sql.Timestamp(Calendar.getInstance().getTimeInMillis()));
+
+                databaseHandler.insertTask(myNewTask);
+
+                listDescriptionField.setText("");
+                listTaskField.setText("");
+                listTaskField.requestFocus();
+            }
+        });
     }
 
 }
