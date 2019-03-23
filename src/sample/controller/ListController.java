@@ -55,12 +55,10 @@ public class ListController {
 
         listSaveTaskButton.setOnAction(event -> {
             addNewTask();
-            System.out.println("Save task clicked!");
         });
     }
 
     public void addNewTask() {
-        listSaveTaskButton.setOnAction(event -> {
             if (!listTaskField.getText().equals("")
                     || !listDescriptionField.getText().equals("")) {
                 Task myNewTask = new Task();
@@ -75,8 +73,13 @@ public class ListController {
                 listDescriptionField.setText("");
                 listTaskField.setText("");
                 listTaskField.requestFocus();
+
+                try {
+                    initialize();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-        });
     }
 
 }
